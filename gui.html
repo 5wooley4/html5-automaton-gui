@@ -5,7 +5,9 @@
       body {
         margin: 0px;
         padding: 0px;
+        background: black;
       }
+      #container{background: white}
     </style>
   </head>
   <body>
@@ -13,6 +15,8 @@
     <script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.7.1.min.js"></script>
     <!-- Our automiton library. -->
     <script src="lib/automiton.js"></script>
+    <!-- Our Gestures Library. -->
+    <script src="lib/canvas_gestures.js"></script>
     <!-- Because jquery is awesome http://api.jquery.com/ -->
     <script type="text/javascript" src="lib/jquery.min.js"></script>
     <!-- Underscore adds some convenient functions for javascript http://underscorejs.org/ -->
@@ -22,28 +26,42 @@
       // Adds an html5 canvas to container
       var stage = new Kinetic.Stage({
         container: 'container',
-        width: 578,
-        height: 200
-      });
-      // New Layer to draw on.
-      var layer1 = new Kinetic.Layer();
-      // example of how to draw a rectangle on the canvas.
-      var rect = new Kinetic.Rect({
-        x: 239,
-        y: 75,
-        width: 100,
-        height: 50,
-        fill: 'green',
-        stroke: 'black',
-        strokeWidth: 4
+        width:$(document).width(),
+        height: $(document).height()
       });
 
-      // add the shape to the layer
-      layer1.add(rect);
+      // Layer to preview gestuers on.
+      var gesture_preview = new Kinetic.Layer();
 
-      // add the layer to the stage
-      stage.add(layer1);
+      // Layer to have touch events on.
+      var touch_layer = new Kinetic.Layer();
 
+      // an empty stage does not emit mouse-events
+      // so fill the stage with a background rectangle
+      // that can emit mouse-events
+      var whiteboard = new Kinetic.Rect({
+          x: 0,
+          y: 0,
+          width: stage.getWidth(),
+          height: stage.getHeight(),
+          //fill: 'green',
+          stroke: 'black',
+          strokeWidth: 1,
+      });
+      canvas_gestures({whiteboard: whiteboard, stage: stage, preview: gesture_preview }) 
+
+
+
+
+
+      touch_layer.add(whiteboard);
+      touch_layer.draw();
+
+
+
+
+      stage.add(touch_layer);
+      stage.add(gesture_preview);
       var aut = aut();
     </script>
   </body>
