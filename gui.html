@@ -11,16 +11,23 @@
   <body>
     <div id="container"></div>
     <script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.7.1.min.js"></script>
-    <script src="main.js"></script>
+    <!-- Our automiton library. -->
+    <script src="lib/automiton.js"></script>
+    <!-- Because jquery is awesome http://api.jquery.com/ -->
+    <script type="text/javascript" src="/js/jQuery.min.js"></script>
+    <!-- Underscore adds some convenient functions for javascript http://underscorejs.org/ -->
+    <script src="lib/underscore-min.js"></script>
+
     <script defer="defer">
+      // Adds an html5 canvas to container
       var stage = new Kinetic.Stage({
         container: 'container',
         width: 578,
         height: 200
       });
-
-      var layer = new Kinetic.Layer();
-
+      // New Layer to draw on.
+      var layer1 = new Kinetic.Layer();
+      // example of how to draw a rectangle on the canvas.
       var rect = new Kinetic.Rect({
         x: 239,
         y: 75,
