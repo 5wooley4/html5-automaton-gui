@@ -14,7 +14,7 @@
     <!-- Our automiton library. -->
     <script src="lib/automiton.js"></script>
     <!-- Because jquery is awesome http://api.jquery.com/ -->
-    <script type="text/javascript" src="/js/jQuery.min.js"></script>
+    <script type="text/javascript" src="lib/jquery.min.js"></script>
     <!-- Underscore adds some convenient functions for javascript http://underscorejs.org/ -->
     <script src="lib/underscore-min.js"></script>
 
@@ -39,10 +39,12 @@
       });
 
       // add the shape to the layer
-      layer.add(rect);
+      layer1.add(rect);
 
       // add the layer to the stage
-      stage.add(layer);
+      stage.add(layer1);
+
+      var aut = aut();
     </script>
   </body>
 </html>
