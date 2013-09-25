@@ -35,8 +35,8 @@
       // Adds an html5 canvas to container
       var stage = new Kinetic.Stage({
         container: 'container',
-        width:$(document).width(),
-        height: $(document).height()
+        width:$(document).width() - $("#menu").width(),
+        height: $(document).height() - $("#menu").height()
       });
 
       // Layer to preview gestuers on.
