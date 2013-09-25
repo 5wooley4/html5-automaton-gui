@@ -42,7 +42,7 @@
             strokeWidth: 4
           });
           // This adds a node to circle for the engine to work with.
-          var state = {circle: circle, node: aut.add_node()};
+          var state = {geo: circle, node: aut.add_node()};
           dfa_layer.add(circle);
           dfa_layer.draw();
           console.log(JSON.stringify(e));
@@ -50,18 +50,27 @@
 
         },
         line: function(e){
-          closest_object(e.start, states);
+          var nearest_state = closest_object(e.start, states);
+          if(nearest_state.geo.intersects(e.start)){
+            var start = nearest_state.geo.getPosition();
+            for(var i =0; i < states.length; i++){
+              if(states[i].geo.intersects(e.end)){
+                var end = states[i].geo.getPosition();
+                var line = new Kinetic.Line({
+                  points: [start, end],
+                  stroke: 'red',
+                  strokeWidth: 5,
+                  lineCap: 'round',
+                  lineJoin: 'round'
+                });
+                dfa_layer.add(line);
+                dfa_layer.draw();
+                return;
+              }
+            }
 
-
-          var line = new Kinetic.Line({
-            points: [e.start, e.end],
-            stroke: 'red',
-            strokeWidth: 5,
-            lineCap: 'round',
-            lineJoin: 'round'
-          });
-          dfa_layer.add(line);
-          dfa_layer.draw();
+            
+          }
         }
       };
 
