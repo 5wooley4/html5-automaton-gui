@@ -11,18 +11,27 @@
     </style>
   </head>
   <body>
+    <div id="menu">
+      <!-- Lauryns stuff here -->
+
+
+    </div>
     <div id="container"></div>
     <script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.7.1.min.js"></script>
     <!-- Our automiton library. -->
     <script src="lib/automiton.js"></script>
     <!-- Our Gestures Library. -->
     <script src="lib/canvas_gestures.js"></script>
+    <!-- Our custom functions library -->
+    <script src="lib/functions.js"></script>
     <!-- Because jquery is awesome http://api.jquery.com/ -->
     <script type="text/javascript" src="lib/jquery.min.js"></script>
     <!-- Underscore adds some convenient functions for javascript http://underscorejs.org/ -->
     <script src="lib/underscore-min.js"></script>
 
     <script defer="defer">
+      // Start Automiton engine
+      var aut = aut();
       // Adds an html5 canvas to container
       var stage = new Kinetic.Stage({
         container: 'container',
@@ -51,6 +60,7 @@
           stroke: 'black',
           strokeWidth: 1,
       });
+      var states = [];
       var events = {
         circle: function(e){
           var circle = new Kinetic.Circle({
@@ -61,12 +71,18 @@
             stroke: 'black',
             strokeWidth: 4
           });
+          // This adds a node to circle for the engine to work with.
+          var state = {circle: circle, node: aut.add_node()};
           dfa_layer.add(circle);
           dfa_layer.draw();
           console.log(JSON.stringify(e));
+          states.push(state);
 
         },
         line: function(e){
+          closest_object(e.start, states);
+
+
           var line = new Kinetic.Line({
             points: [e.start, e.end],
             stroke: 'red',
@@ -97,7 +113,6 @@
 
       stage.add(touch_layer);
       stage.add(gesture_preview);
-      var aut = aut();
     </script>
   </body>
 </html>
