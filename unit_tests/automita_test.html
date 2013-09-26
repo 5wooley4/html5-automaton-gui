@@ -4,9 +4,10 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script type="text/javascript" src="../lib/automiton.js"></script>
 	<script type="text/javascript">
+	var debug = false;
 	// Test 1
 	// examples implemented from here: http://web.cs.gc.cuny.edu/~mlampis/cis38/hws/sol1.pdf
-	var test1 = aut();
+	var test1 = aut({debug: debug});
 	// problem 2
 	// The alphabet is {a, b, c}. Give a DFA that recognizes the language L which
 	// consists of the strings where the number of b’s is a multiple of 3.
@@ -53,7 +54,7 @@
 	// Test 2
 	// the alphabet is {a, b, c}
 	// consists of all strings that start with ab.
-	var test2 = aut({debug: true});
+	var test2 = aut({debug: debug});
 
 	// Nodes
 	var node_1 = test2.add_node({starting: true, lbl:"node_1"});
@@ -75,13 +76,21 @@
 	// Node_4 Transitions
 	node_4.add_transition('ab', node_4);
 
-	problems = [];
+	var problems = [];
 	problems.push({problem: 'abbabb', answer: true});
 	problems.push({problem: 'ab', answer: true});
 	problems.push({problem: 'abbabbaabba', answer: true});
 	problems.push({problem: 'babbabbaba', answer: false});
 	problems.push({problem: 'cbaabasadfa', answer: false});
 	problems.push({problem: 'babbaaf', answer: false});
+
+	// cleanup
+	delete test2;
+	delete node_1;
+	delete node_2;
+	delete node_3;
+	delete node_4;
+	delete problems;
 
 	run_tests({
 		aut: test2,
@@ -97,7 +106,7 @@
 			document.write(obj.header);
 		document.write("<table>");
 		for(var i =0; i < problems.length; i++){
-			console.log("testing: " + problems[i].problem)
+			if(debug) console.log("testing: " + problems[i].problem)
 			var p = problems[i];
 			var ans = aut.run(p.problem);
 			var answer_correct = p.answer == ans ? "pass": "fail";
