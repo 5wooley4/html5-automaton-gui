@@ -5,6 +5,30 @@
 	<script type="text/javascript">
 	// examples implemented from here: http://web.cs.gc.cuny.edu/~mlampis/cis38/hws/sol1.pdf
 	var aut = aut();
+	// problem 2
+	// The alphabet is {a, b, c}. Give a DFA that recognizes the language L which
+	// consists of the strings where the number of b’s is a multiple of 3.
+	var node_1 = aut.add_node({accepting: true, starting: true});
+	var node_2 = aut.add_node();
+	var node_3 = aut.add_node();
+
+	// Node 1 transitions
+	node_1.add_transition('ac', node_1);
+	node_1.add_transition('b', node_2);
+
+	// Node 2 transitions
+	node_2.add_transition('ac', node_2);
+	node_2.add_transition('b', node_3);
+
+	// Node 3 transitions.
+	node_3.add_transition('ac', node_3);
+	node_3.add_transition('b', node_1);
+	problems = [];
+	problems.push({problem: 'bbb', answer: true});
+
+
+
+	console.log(aut.run('abc'));
 
 
 	</script>
