@@ -1,21 +1,30 @@
 <!DOCTYPE HTML>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
       body {
         margin: 0px;
         padding: 0px;
         background: black;
       }
-      #container{background: white}
+      #canvas_container{background: white; height: 800px;}
     </style>
+    <!-- Bootstrap core CSS -->
+    <link href="lib/css/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
   </head>
   <body>
-    <div id="menu">
-      <!-- Lauryns stuff here -->
-
+    <div class='containter'>
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div id="menu">
+          <!-- Lauryns stuff here -->
+          
+        </div>
+      </nav>
+    <div 
+      
+      <div id="canvas_container"></div>
     </div>
-    <div id="container"></div>
     <script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.7.1.min.js"></script>
     <!-- Our automiton library. -->
     <script src="lib/automiton.js"></script>
@@ -27,6 +36,8 @@
     <script type="text/javascript" src="lib/jquery.min.js"></script>
     <!-- Underscore adds some convenient functions for javascript http://underscorejs.org/ -->
     <script src="lib/underscore-min.js"></script>
+     <!-- bootstrap js is awesome. -->
+    <script src="lib/css/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- This is where the top level logic will go. -->
     <script src='main.js' defer="defer"></script>
   </body>
