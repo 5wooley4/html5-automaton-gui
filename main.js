@@ -2,9 +2,9 @@
   var aut = aut();
       // Adds an html5 canvas to container
       var stage = new Kinetic.Stage({
-        container: 'container',
-        width:$(document).width(),
-        height: $(document).height()
+        container: 'canvas_container',
+        width:$("#canvas_container").width(),
+        height: $("#canvas_container").height()
       });
 
       // Layer to preview gestuers on.
@@ -56,14 +56,37 @@
             for(var i =0; i < states.length; i++){
               if(states[i].geo.intersects(e.end)){
                 var end = states[i].geo.getPosition();
-                var line = new Kinetic.Line({
-                  points: [start, end],
-                  stroke: 'red',
-                  strokeWidth: 5,
-                  lineCap: 'round',
-                  lineJoin: 'round'
+                // var line = new Kinetic.Line({
+                //   points: [start, end],
+                //   stroke: 'red',
+                //   strokeWidth: 5,
+                //   lineCap: 'round',
+                //   lineJoin: 'round'
+                // });
+                // dfa_layer.add(line);
+
+                // try an arc instead of a line
+                var arc = new Kinetic.Shape({
+                  x: 5,
+                  y: 10,
+                  fill: 'red',
+                  strokeWidth: 4,
+                  // a Kinetic.Canvas renderer is passed into the drawFunc function
+                  drawFunc: function(context) {
+                    context.strokeStyle = 'red';
+                    
+                    context.beginPath();
+                    context.moveTo(start.x, start.y);
+                    context.quadraticCurveTo((start.x + end.x) / 2, (start.y + end.y) /2 - 100, end.x, end.y);
+                    context.lineWidth = 20;
+
+                    // line color
+                    context.stroke();
+
+                  }
                 });
-                dfa_layer.add(line);
+
+                dfa_layer.add(arc);
                 dfa_layer.draw();
                 return;
               }
@@ -89,8 +112,8 @@
       touch_layer.add(whiteboard);
       touch_layer.draw();
 
+// This this keyboard is pretty cooddd
 
 
-
-      stage.add(touch_layer);
-      stage.add(gesture_preview);
+stage.add(touch_layer);
+stage.add(gesture_preview);
