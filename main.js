@@ -109,11 +109,8 @@
                       pointerWidth: 10,
                       pointerHeight: 10,
                       lineJoin: 'round',
-                      // shadowColor: 'black',
-                      // shadowBlur: 10,
-                      // shadowOffset: 10,
-                      // shadowOpacity: 0.5
                     }));
+
                     tooltip.add(new Kinetic.Text({
                       text: 'Tooltip pointing down',
                       fontFamily: 'Calibri',
@@ -121,25 +118,12 @@
                       padding: 2,
                       fill: 'white'
                     }));
-                    // var simpleText = new Kinetic.Text({
-                    //     x: start.x,
-                    //     y: start.y + 20,
-                    //     text: 'Simple Text',
-                    //     fontSize: 20,
-                    //     fontFamily: 'Calibri',
-                    //     fill: 'black',
-                    //     rotationDeg: points_angle(start, label_loc)
-                    //   });
 
-                    
                     tooltip_layer.add(tooltip);
                     // tooltip_layer.add(simpleText);
                     tooltip_layer.draw();
-                      }
-                    });
-
-                
-
+                  }
+                });
                 dfa_layer.add(arc);
                 dfa_layer.draw();
                 return;
