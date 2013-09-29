@@ -16,6 +16,9 @@
       // Layer to draw our shapes
       var dfa_layer = new Kinetic.Layer();
       stage.add(dfa_layer);
+
+      var tooltip_layer = new Kinetic.Layer();
+      stage.add(tooltip_layer);
       // an empty stage does not emit mouse-events
       // so fill the stage with a background rectangle
       // that can emit mouse-events
@@ -45,46 +48,97 @@
           var state = {geo: circle, node: aut.add_node()};
           dfa_layer.add(circle);
           dfa_layer.draw();
-          console.log(JSON.stringify(e));
           states.push(state);
 
         },
+
+        // This function is fired when there is a line drawn between two circles.
         line: function(e){
+          // find the closest circle to where the line started.
           var nearest_state = closest_object(e.start, states);
+          // check if the line started in a circle.
           if(nearest_state.geo.intersects(e.start)){
+            // get the position of the nearest circle.
             var start = nearest_state.geo.getPosition();
+            // check if the end of the line ends withit a cirlce
             for(var i =0; i < states.length; i++){
+              // look if we are inside this circle.
               if(states[i].geo.intersects(e.end)){
                 var end = states[i].geo.getPosition();
-                // var line = new Kinetic.Line({
-                //   points: [start, end],
-                //   stroke: 'red',
-                //   strokeWidth: 5,
-                //   lineCap: 'round',
-                //   lineJoin: 'round'
-                // });
-                // dfa_layer.add(line);
-
-                // try an arc instead of a line
+                var label_loc;
+                // draw an arc between the two cirlces.
                 var arc = new Kinetic.Shape({
-                  x: 5,
-                  y: 10,
-                  fill: 'red',
-                  strokeWidth: 4,
-                  // a Kinetic.Canvas renderer is passed into the drawFunc function
                   drawFunc: function(context) {
                     context.strokeStyle = 'red';
-                    
                     context.beginPath();
                     context.moveTo(start.x, start.y);
-                    context.quadraticCurveTo((start.x + end.x) / 2, (start.y + end.y) /2 - 100, end.x, end.y);
+                    var yminus, xminus;
+                    if(Math.abs(start.x - end.x) < Math.abs(start.y - end.y)){
+                      yminus = 0;
+                      xminus = 100;
+                    } else {
+                      yminus = 100;
+                      xminus = 0;
+                    }
+                    label_loc={x: (start.x + end.x) / 2 + xminus, y: (start.y + end.y) /2 - yminus};
+                    context.quadraticCurveTo(label_loc.x, label_loc.y, end.x, end.y);
                     context.lineWidth = 20;
-
-                    // line color
                     context.stroke();
 
-                  }
-                });
+                    // determine direction
+                    var pointer_direction, rotation;
+                    if(start.x < label_loc.x){
+                      pointer_direction = 'right';
+                      rotation = points_angle(start, label_loc);
+                    } else {
+                      pointer_direction = 'left';
+                      rotation = points_angle(start, label_loc) + 180;
+                    }
+
+
+                    var tooltip = new Kinetic.Label({
+                      x: start.x,
+                      y: start.y,
+                      opacity: 0.75,
+                      rotationDeg: rotation
+                    });
+
+                    tooltip.add(new Kinetic.Tag({
+                      fill: 'black',
+                      pointerDirection: pointer_direction,
+                      pointerWidth: 10,
+                      pointerHeight: 10,
+                      lineJoin: 'round',
+                      // shadowColor: 'black',
+                      // shadowBlur: 10,
+                      // shadowOffset: 10,
+                      // shadowOpacity: 0.5
+                    }));
+                    tooltip.add(new Kinetic.Text({
+                      text: 'Tooltip pointing down',
+                      fontFamily: 'Calibri',
+                      fontSize: 14,
+                      padding: 2,
+                      fill: 'white'
+                    }));
+                    // var simpleText = new Kinetic.Text({
+                    //     x: start.x,
+                    //     y: start.y + 20,
+                    //     text: 'Simple Text',
+                    //     fontSize: 20,
+                    //     fontFamily: 'Calibri',
+                    //     fill: 'black',
+                    //     rotationDeg: points_angle(start, label_loc)
+                    //   });
+
+                    
+                    tooltip_layer.add(tooltip);
+                    // tooltip_layer.add(simpleText);
+                    tooltip_layer.draw();
+                      }
+                    });
+
+                
 
                 dfa_layer.add(arc);
                 dfa_layer.draw();
