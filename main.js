@@ -1,5 +1,6 @@
   // Start Automiton engine
   var aut = aut();
+      // TODO: Hookup DFA STFF HERE
       // Adds an html5 canvas to container
       var stage = new Kinetic.Stage({
         container: 'canvas_container',
@@ -53,85 +54,10 @@
         },
 
         // This function is fired when there is a line drawn between two circles.
+        // This funciton can be found in lib/transition.js
         line: function(e){
-          // find the closest circle to where the line started.
-          var nearest_state = closest_object(e.start, states);
-          // check if the line started in a circle.
-          if(nearest_state.geo.intersects(e.start)){
-            // get the position of the nearest circle.
-            var start = nearest_state.geo.getPosition();
-            // check if the end of the line ends withit a cirlce
-            for(var i =0; i < states.length; i++){
-              // look if we are inside this circle.
-              if(states[i].geo.intersects(e.end)){
-                var end = states[i].geo.getPosition();
-                var label_loc;
-                // draw an arc between the two cirlces.
-                var arc = new Kinetic.Shape({
-                  drawFunc: function(context) {
-                    context.strokeStyle = 'red';
-                    context.beginPath();
-                    context.moveTo(start.x, start.y);
-                    var yminus, xminus;
-                    if(Math.abs(start.x - end.x) < Math.abs(start.y - end.y)){
-                      yminus = 0;
-                      xminus = 100;
-                    } else {
-                      yminus = 100;
-                      xminus = 0;
-                    }
-                    label_loc={x: (start.x + end.x) / 2 + xminus, y: (start.y + end.y) /2 - yminus};
-                    context.quadraticCurveTo(label_loc.x, label_loc.y, end.x, end.y);
-                    context.lineWidth = 20;
-                    context.stroke();
-
-                    // determine direction
-                    var pointer_direction, rotation;
-                    if(start.x < label_loc.x){
-                      pointer_direction = 'right';
-                      rotation = points_angle(start, label_loc);
-                    } else {
-                      pointer_direction = 'left';
-                      rotation = points_angle(start, label_loc) + 180;
-                    }
-
-
-                    var tooltip = new Kinetic.Label({
-                      x: start.x,
-                      y: start.y,
-                      opacity: 0.75,
-                      rotationDeg: rotation
-                    });
-
-                    tooltip.add(new Kinetic.Tag({
-                      fill: 'black',
-                      pointerDirection: pointer_direction,
-                      pointerWidth: 10,
-                      pointerHeight: 10,
-                      lineJoin: 'round',
-                    }));
-
-                    tooltip.add(new Kinetic.Text({
-                      text: 'Tooltip pointing down',
-                      fontFamily: 'Calibri',
-                      fontSize: 14,
-                      padding: 2,
-                      fill: 'white'
-                    }));
-
-                    tooltip_layer.add(tooltip);
-                    // tooltip_layer.add(simpleText);
-                    tooltip_layer.draw();
-                  }
-                });
-                dfa_layer.add(arc);
-                dfa_layer.draw();
-                return;
-              }
-            }
-
-            
-          }
+          // TODO :Hook up DFA stuff here
+          transition(e);
         }
       };
 
@@ -143,15 +69,8 @@
         events: events
       }); 
 
-
-
-
-
       touch_layer.add(whiteboard);
       touch_layer.draw();
-
-// This this keyboard is pretty cooddd
-
 
 stage.add(touch_layer);
 stage.add(gesture_preview);
