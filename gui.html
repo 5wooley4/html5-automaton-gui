@@ -20,16 +20,16 @@
           <!-- Lauryns stuff here -->
           <div class="btn-group" data-toggle="buttons" style="padding: 10px">
             <label class="btn btn-primary">
-              <input type="radio" name="options" id="move"> Move
+              <input type="radio" name="options" onchange="changeCursor(id)" id="move"> Move
             </label>
             <label class="btn btn-primary">
-              <input type="radio" name="options" id="newState"> New State
+              <input type="radio" name="options" onchange="changeCursor(id)" id="newState"> New State
             </label>
             <label class="btn btn-primary">
-              <input type="radio" name="options" id="delete"> Delete
+              <input type="radio" name="options" onchange="changeCursor(id)" id="delete"> Delete
             </label>
             <label class="btn btn-primary">
-              <input type="radio" name="options" id="rename"> Rename
+              <input type="radio" name="options" onchange="changeCursor(id)" id="rename"> Rename
             </label>
           </div>
         </div>
