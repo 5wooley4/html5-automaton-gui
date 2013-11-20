@@ -18,7 +18,20 @@
       <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div id="menu">
           <!-- Lauryns stuff here -->
-          
+          <div class="btn-group" data-toggle="buttons" style="padding: 10px">
+            <label class="btn btn-primary">
+              <input type="radio" name="options" id="move"> Move
+            </label>
+            <label class="btn btn-primary">
+              <input type="radio" name="options" id="newState"> New State
+            </label>
+            <label class="btn btn-primary">
+              <input type="radio" name="options" id="delete"> Delete
+            </label>
+            <label class="btn btn-primary">
+              <input type="radio" name="options" id="rename"> Rename
+            </label>
+          </div>
         </div>
       </nav>
     <div 
@@ -26,6 +39,8 @@
       <div id="canvas_container"></div>
     </div>
     <script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.7.1.min.js"></script>
+    <!-- Our menu library. -->
+    <script src="lib/menu.js"></script>
     <!-- Our automiton library. -->
     <script src="lib/automiton.js"></script>
     <!-- Our Gestures Library. -->
