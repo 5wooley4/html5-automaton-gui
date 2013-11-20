@@ -19,19 +19,23 @@
         <div id="menu">
           <!-- Lauryns stuff here -->
           <div class="btn-group" data-toggle="buttons" style="padding: 10px">
-            <label class="btn btn-primary">
+            <label class="btn btn-default">
               <input type="radio" name="options" onchange="changeCursor(id)" id="move"> Move
             </label>
-            <label class="btn btn-primary">
+            <label class="btn btn-default">
               <input type="radio" name="options" onchange="changeCursor(id)" id="newState"> New State
             </label>
-            <label class="btn btn-primary">
+            <label class="btn btn-default">
+              <input type="radio" name="options" onchange="changeCursor(id)" id="transition"> New Transition
+            </label>
+            <label class="btn btn-default">
               <input type="radio" name="options" onchange="changeCursor(id)" id="delete"> Delete
             </label>
-            <label class="btn btn-primary">
+            <label class="btn btn-default">
               <input type="radio" name="options" onchange="changeCursor(id)" id="rename"> Rename
             </label>
           </div>
+          <button type="button" class="btn btn-default" onclick="window.open('halp.html')">Help</button>
         </div>
       </nav>
     <div id="main"><div id="canvas_container"></div>
@@ -50,7 +54,7 @@
     <script type="text/javascript" src="lib/jquery.min.js"></script>
     <!-- Underscore adds some convenient functions for javascript http://underscorejs.org/ -->
     <script src="lib/underscore-min.js"></script>
-     <!-- bootstrap js is awesome. -->
+    <!-- bootstrap js is awesome. -->
     <script src="lib/css/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- transition function -->
     <script src="lib/transition.js"></script>
