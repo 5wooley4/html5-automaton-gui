@@ -1,10 +1,10 @@
-/******** Project - Fianl *********************************
+/******** Project - Final *********************************
 Authors: Eric Wooley, Tandra Felly, Lauryn Loudermilk
-Description: Javascript automita engine.
+Description: JavaScript automata engine.
 **********************************************************/
 // Start Automiton engine
 var aut = aut();
-    // TODO: Hookup DFA STFF HERE
+    // TODO: Hookup DFA STUFF HERE
     // Adds an html5 canvas to container
     var stage = new Kinetic.Stage({
       container: 'canvas_container',
@@ -36,6 +36,7 @@ var aut = aut();
         stroke: 'black',
         strokeWidth: 1,
       });
+
     // an array of all the states.
     var states = [];
     // these are the gesture events. when we get a circle call this event, etc...
