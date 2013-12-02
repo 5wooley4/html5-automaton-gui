@@ -1,6 +1,6 @@
 /******** Project - Final *********************************
 Authors: Eric Wooley, Tandra Felly, Lauryn Loudermilk
-Description: JavaScript automata engine.
+Description: Javascript automata engine.
 **********************************************************/
 // Start Automiton engine
 var aut = aut();
