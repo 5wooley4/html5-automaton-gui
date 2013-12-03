@@ -32,7 +32,6 @@ var aut = aut();
       y: 0,
       width: stage.getWidth(),
       height: stage.getHeight(),
-        //fill: 'green',
         stroke: 'black',
         strokeWidth: 1,
       });
@@ -53,7 +52,7 @@ var aut = aut();
         // This adds a node to circle for the engine to work with.
         var state = {geo: circle, node: aut.add_node()};
         dfa_layer.add(circle);
-        dfa_layer.draw();
+        dfa_layer.draw(); //called to draw the layer after changes
         states.push(state);
 
       },
