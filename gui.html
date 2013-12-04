@@ -1,6 +1,9 @@
 <!DOCTYPE HTML>
 <html>
   <head>
+    <link href="css/ui-lightness/jquery-ui-1.10.3.custom.css" rel="stylesheet">
+    <script src="js/jquery-1.9.1.js"></script>
+    <script src="js/jquery-ui-1.10.3.custom.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
       body {
@@ -14,14 +17,24 @@
     <link href="lib/css/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
   </head>
   <body>
+  <div></div>
+
+  <div id="dialog" title="Basic modal dialog" style="display: none;"><input placeholder="Transition values" id="prompt_input" /></div>
+
+  <script type="text/javascript">
+  
+  </script>
     <div class='containter'>
       <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <p>
+        <a href="#" id="dialog-link">Open</a>
+      </p>
         <div id="menu">
           <!-- Lauryns stuff here -->
           
         </div>
       </nav>
-    <div 
+    <div> 
       
       <div id="canvas_container"></div>
     </div>
@@ -32,8 +45,6 @@
     <script src="lib/canvas_gestures.js"></script>
     <!-- Our custom functions library -->
     <script src="lib/functions.js"></script>
-    <!-- Because jquery is awesome http://api.jquery.com/ -->
-    <script type="text/javascript" src="lib/jquery.min.js"></script>
     <!-- Underscore adds some convenient functions for javascript http://underscorejs.org/ -->
     <script src="lib/underscore-min.js"></script>
      <!-- bootstrap js is awesome. -->
