@@ -1,5 +1,5 @@
-  // Start Automiton engine
-  var aut = aut();
+      // Start Automiton engine
+      var aut = aut();
       // TODO: Hookup DFA STFF HERE
       // Adds an html5 canvas to container
       var stage = new Kinetic.Stage({
@@ -72,5 +72,5 @@
       touch_layer.add(whiteboard);
       touch_layer.draw();
 
-stage.add(touch_layer);
-stage.add(gesture_preview);
+    stage.add(touch_layer);
+    stage.add(gesture_preview);
