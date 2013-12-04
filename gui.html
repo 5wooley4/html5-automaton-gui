@@ -28,14 +28,30 @@
       <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div id="menu">
           <!-- Lauryns stuff here -->
-          
+          <div class="btn-group" data-toggle="buttons" style="padding: 10px">
+            <label class="btn btn-default">
+              <input type="radio" name="options" onchange="changeCursor(id)" id="move"> Move
+            </label>
+            <label class="btn btn-default">
+              <input type="radio" name="options" onchange="changeCursor(id)" id="delete"> Delete
+            </label>
+            <label class="btn btn-default">
+              <input type="radio" name="options" onchange="changeCursor(id)" id="rename"> Rename
+            </label>
+            <label class="btn btn-default">
+              <input type="radio" name="options" onchange="changeCursor(id)" id="clear"> Clear Screen
+            </label>
+          </div>
+          <button type="button" class="btn btn-default" onclick="window.open('halp.html')">Help</button>
         </div>
       </nav>
     <div> 
-      
+    <div id="main">
       <div id="canvas_container"></div>
     </div>
     <script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.7.1.min.js"></script>
+    <!-- Our menu library. -->
+    <script src="lib/menu.js"></script>
     <!-- Our automiton library. -->
     <script src="lib/automiton.js"></script>
     <!-- Our Gestures Library. -->
@@ -44,7 +60,7 @@
     <script src="lib/functions.js"></script>
     <!-- Underscore adds some convenient functions for javascript http://underscorejs.org/ -->
     <script src="lib/underscore-min.js"></script>
-     <!-- bootstrap js is awesome. -->
+    <!-- bootstrap js is awesome. -->
     <script src="lib/css/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- transition function -->
     <script src="lib/transition.js"></script>
