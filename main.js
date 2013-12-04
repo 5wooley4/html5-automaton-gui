@@ -3,7 +3,7 @@ Authors: Eric Wooley, Tandra Felly, Lauryn Loudermilk
 Description: Javascript automata engine.
 **********************************************************/
       // Start Automiton engine
-      var aut = aut();
+      var aut = new DFA();
       // TODO: Hookup DFA STFF HERE
       // Adds an html5 canvas to container
       var stage = new Kinetic.Stage({
@@ -11,7 +11,7 @@ Description: Javascript automata engine.
         width:$("#canvas_container").width(),
         height: $("#canvas_container").height()
       });
-
+      var savedTransitions = {};
 
     // Layer to preview gestuers on.
     var gesture_preview = new Kinetic.Layer();
