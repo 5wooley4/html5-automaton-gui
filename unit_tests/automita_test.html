@@ -3,11 +3,13 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script type="text/javascript" src="../lib/automiton.js"></script>
+	<script type="text/javascript" src="../lib/underscore-min.js"></script>
+	<script type="text/javascript" src="../lib/jquery.min.js"></script>
 	<script type="text/javascript">
 	var debug = false;
 	// Test 1
 	// examples implemented from here: http://web.cs.gc.cuny.edu/~mlampis/cis38/hws/sol1.pdf
-	var test1 = aut({debug: debug});
+	var test1 = new DFA({debug: debug});
 	// problem 2
 	// The alphabet is {a, b, c}. Give a DFA that recognizes the language L which
 	// consists of the strings where the number of b’s is a multiple of 3.
@@ -54,7 +56,7 @@
 	// Test 2
 	// the alphabet is {a, b, c}
 	// consists of all strings that start with ab.
-	var test2 = aut({debug: debug});
+	var test2 = new DFA({debug: debug});
 
 	// Nodes
 	var node_1 = test2.add_node({starting: true, lbl:"node_1"});
