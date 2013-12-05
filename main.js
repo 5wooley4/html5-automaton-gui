@@ -68,7 +68,7 @@ var events = {
 
       });
       circle.on('dragend', function() {
-        this.setFill('red');
+        console.log('dragend');
 
       });
     })
