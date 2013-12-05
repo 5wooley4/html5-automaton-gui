@@ -36,8 +36,8 @@ var whiteboard = new Kinetic.Rect({
   y: 0,
   width: stage.getWidth(),
   height: stage.getHeight(),
-    stroke: 'black',
-    strokeWidth: 1,
+  stroke: 'black',
+  strokeWidth: 1,
   });
 
 // an array of all the states.
@@ -58,10 +58,17 @@ var events = {
       console.log("you clicked the circle!");
       if (document.getElementById("move").checked){
         console.log('move is active')
-        move();
       }
       else{
-        remove();
+        console.log('delete is active')
+        var answer = confirm("Would you like to delete this object?")
+        if (answer){
+          this.remove();
+          dfa_layer.draw();
+        }
+        else{
+          return;
+        }
       }
     });
     circle.on('dragstart', function() {
@@ -69,7 +76,7 @@ var events = {
         this.setFill("grey");
         dfa_layer.draw();
       });
-      circle.on('dragend', function() {
+    circle.on('dragend', function() {
         console.log('dragend');
         this.setFill("red");
         dfa_layer.draw();
