@@ -51,7 +51,13 @@ Description: Javascript automata engine.
           strokeWidth: 4
         });
         // This adds a node to circle for the engine to work with.
-        var state = {geo: circle, node: aut.add_node()};
+        console.log()
+        var state = {
+          geo: circle,
+          node: aut.add_node({
+            
+          })
+        };
         dfa_layer.add(circle);
         dfa_layer.draw(); //called to draw the layer after changes
         states.push(state);
