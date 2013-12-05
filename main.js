@@ -11,6 +11,9 @@ Description: Javascript automata engine.
         width:$("#canvas_container").width(),
         height: $("#canvas_container").height()
       });
+      // index, with the keys formatted as stateFromId-stateToId
+      // ex: if a state goes from state with id 1, to a state with id 3
+      // the index would be savedTransitions["1-3"]
       var savedTransitions = {};
 
     // Layer to preview gestuers on.
@@ -55,7 +58,22 @@ Description: Javascript automata engine.
         var state = {
           geo: circle,
           node: aut.add_node({
-            
+            deleteTransition: function(l, node1, node2){
+              console.log("deleting: "+l + " " + node1.getId()+"-"+node2.getId());
+              var t = savedTransitions[node1.getId()+"-"+node2.getId()];
+              if(t){
+                var new_label = node1.getTransitionAsString(node2).replace(l, '');
+                if(new_label && new_label.length > 1){
+                  console.log("new label: " + new_label)
+                  t.text.setText(new_label);
+                  tooltip_layer.draw();
+                } else {
+                  console.log("nothing left: removing "+node1.getId()+"-"+node2.getId())
+                  t.removeSelf();
+                  delete savedTransitions[node1.getId()+"-"+node2.getId()];
+                }
+              }
+            } 
           })
         };
         dfa_layer.add(circle);
