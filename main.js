@@ -56,7 +56,19 @@ var events = {
     });
     circle.on('click', function(){
       console.log("you clicked the circle!");
+<<<<<<< HEAD
     });
+=======
+      if (document.getElementById("move").checked){
+        console.log('move is active')
+        move();
+      }
+      else{
+        remove();
+      }
+    })
+
+>>>>>>> 1aa6ad41faf51d39203a528bfb5be0c2c0c78514
     // This adds a node to circle for the engine to work with.
     console.log()
     var state = {
