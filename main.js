@@ -56,7 +56,7 @@ var events = {
     });
     circle.on('click', function(){
       console.log("you clicked the circle!");
-    })
+    });
     // This adds a node to circle for the engine to work with.
     console.log()
     var state = {
