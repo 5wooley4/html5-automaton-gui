@@ -73,12 +73,6 @@ var events = {
         } 
       })
     };
-    circle.on('mousedown', function() {
-      console.log("mousedown")
-    });
-    circle.on('mouseup', function() {
-      console.log('mouseup')
-    });
     dfa_layer.add(circle);
     dfa_layer.draw(); //called to draw the layer after changes
     states.push(state);
