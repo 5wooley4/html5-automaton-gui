@@ -59,16 +59,13 @@ Description: Javascript automata engine.
           geo: circle,
           node: aut.add_node({
             deleteTransition: function(l, node1, node2){
-              console.log("deleting: "+l + " " + node1.getId()+"-"+node2.getId());
               var t = savedTransitions[node1.getId()+"-"+node2.getId()];
               if(t){
                 var new_label = node1.getTransitionAsString(node2).replace(l, '');
                 if(new_label && new_label.length > 0){
-                  console.log("new label: " + new_label)
                   t.text.setText(new_label);
                   tooltip_layer.draw();
                 } else {
-                  console.log("nothing left: removing "+node1.getId()+"-"+node2.getId())
                   t.removeSelf();
                   delete savedTransitions[node1.getId()+"-"+node2.getId()];
                 }
@@ -76,6 +73,12 @@ Description: Javascript automata engine.
             } 
           })
         };
+        circle.on('mousedown', function() {
+          console.log("mousedown")
+        });
+        circle.on('mouseup', function() {
+          console.log('mouseup')
+        });
         dfa_layer.add(circle);
         dfa_layer.draw(); //called to draw the layer after changes
         states.push(state);
@@ -95,7 +98,10 @@ Description: Javascript automata engine.
       whiteboard: whiteboard,
       stage: stage,
       preview: gesture_preview,
-      events: events
+      events: events,
+      onClick:function(loc){
+        console.log(JSON.stringify(loc))
+      }
     }); 
 
     touch_layer.add(whiteboard);
