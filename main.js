@@ -63,14 +63,16 @@ var events = {
       else{
         remove();
       }
-      circle.on('dragstart', function() {
+    });
+    circle.on('dragstart', function() {
         console.log('dragstart');
-
+        this.setFill("grey");
+        dfa_layer.draw();
       });
       circle.on('dragend', function() {
         console.log('dragend');
-
-      });
+        this.setFill("red");
+        dfa_layer.draw();
     })
     // This adds a node to circle for the engine to work with.
     console.log()
