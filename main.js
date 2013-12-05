@@ -53,6 +53,9 @@ var events = {
       stroke: 'black',
       strokeWidth: 4
     });
+    circle.on('click', function(){
+      console.log("you clicked the circle!");
+    })
     // This adds a node to circle for the engine to work with.
     console.log()
     var state = {
@@ -88,16 +91,23 @@ var events = {
 };
 
 // Call the canvas gestures library.
-canvas_gestures({
+gesturesController = canvas_gestures({
   whiteboard: whiteboard,
   stage: stage,
   preview: gesture_preview,
   events: events,
   onClick:function(loc){
     console.log(JSON.stringify(loc))
+    $.each(states, function(index, state){
+      if(state.geo.intersects(loc)){
+        return state.geo.fire("click");
+      }
+    });
   }
 }); 
-
+gesturesController.enableGestures();
+// to disable gestures controller:
+// gesturesController.disableGestures();
 touch_layer.add(whiteboard);
 touch_layer.draw();
 
