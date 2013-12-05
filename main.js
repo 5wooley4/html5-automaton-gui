@@ -63,7 +63,7 @@ Description: Javascript automata engine.
               var t = savedTransitions[node1.getId()+"-"+node2.getId()];
               if(t){
                 var new_label = node1.getTransitionAsString(node2).replace(l, '');
-                if(new_label && new_label.length > 1){
+                if(new_label && new_label.length > 0){
                   console.log("new label: " + new_label)
                   t.text.setText(new_label);
                   tooltip_layer.draw();
