@@ -51,7 +51,8 @@ var events = {
       radius: e.radius,
       fill: 'red',
       stroke: 'black',
-      strokeWidth: 4
+      strokeWidth: 4,
+      draggable: true
     });
     circle.on('click', function(){
       console.log("you clicked the circle!");
@@ -85,7 +86,6 @@ var events = {
   // This function is fired when there is a line drawn between two circles.
   // This funciton can be found in lib/transition.js
   line: function(e){
-    // TODO :Hook up DFA stuff here
     transition(e);
   }
 };
