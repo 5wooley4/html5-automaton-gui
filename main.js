@@ -69,6 +69,16 @@ var events = {
       if (document.getElementById("move").checked){
         console.log('move is active')
       }
+      else if (document.getElementById("initial").checked){
+        console.log('make initial')
+        state.makeStart(true);
+        dfa_layer.draw();
+      }
+      else if (document.getElementById("accepting").checked){
+        console.log('make accepting')
+        state.makeAccepting(true);
+        dfa_layer.draw();
+      }
       else{
         console.log('delete is active')
         var answer = confirm("Would you like to delete this object?")
