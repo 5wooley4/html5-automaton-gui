@@ -37,15 +37,15 @@ var tooltip_layer = new Kinetic.Layer();
 stage.add(tooltip_layer);
 
 markerLayer = new Kinetic.Layer();
+var startingState;
 var startingMarker = new Kinetic.Wedge({
-  radius: 70,
+  radius: 40,
   angleDeg: 60,
   stroke: 'black',
+  fill: "white",
   strokeWidth: 3,
   rotationDeg: 150
 });
-markerLayer.add(startingMarker);
-stage.add(markerLayer);
 // an empty stage does not emit mouse-events
 // so fill the stage with a background rectangle
 // that can emit mouse-events
@@ -65,13 +65,11 @@ var events = {
   circle: function(e){
     var state = new State(e);  
     state.on('dragstart', function() {
-      console.log('dragstart');
-      this.setFill("grey");
+      state.setFill("grey");
       dfa_layer.draw();
     });
     state.on('dragend', function() {
-      console.log('dragend');
-      this.setFill("red");
+      state.setFill("red");
       state.redrawTransitions();
       transition_layer.draw();
       dfa_layer.draw();
@@ -113,6 +111,7 @@ var events = {
       aut.setStartingNode(state);
     }
     states[state.getId()] = state;
+    dfa_layer.draw();
 
   },
 
