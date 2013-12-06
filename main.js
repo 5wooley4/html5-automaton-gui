@@ -76,7 +76,7 @@ var events = {
       }
       else if (document.getElementById("accepting").checked){
         console.log('make accepting')
-        state.makeAccepting(true);
+        state.toggleAccepting(true);
         dfa_layer.draw();
       }
       else{
