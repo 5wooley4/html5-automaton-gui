@@ -47,71 +47,24 @@ var whiteboard = new Kinetic.Rect({
   });
 
 // an array of all the states.
-var states = [];
+var states = {};
 // these are the gesture events. when we get a circle call this event, etc...
 var events = {
   circle: function(e){
-    var circle = new Kinetic.Circle({
-      x: e.center.x,
-      y: e.center.y,
-      radius: e.radius,
-      fill: 'red',
-      stroke: 'black',
-      strokeWidth: 4,
-      draggable: true
+    var state = new State(e);  
+    state.on('dragstart', function() {
+      console.log('dragstart');
+      this.setFill("grey");
+      dfa_layer.draw();
     });
-    circle.on('click', function(){
-      console.log("you clicked the circle!");
-      if (document.getElementById("move").checked){
-        console.log('move is active')
-        move();
-      }
-      else{
-        remove();
-      }
+    state.on('dragend', function() {
+      console.log('dragend');
+      this.setFill("red");
+      state.redrawTransitions();
+      transition_layer.draw();
+      dfa_layer.draw();
     });
-    
-    // This adds a node to circle for the engine to work with.
-    console.log()
-    var state = {
-      geo: circle,
-      node: aut.add_node({
-        deleteTransition: function(l, node1, node2){
-          var t = savedTransitions[node1.getId()+"-"+node2.getId()];
-          if(t){
-            var new_label = node1.getTransitionAsString(node2).replace(l, '');
-            if(new_label && new_label.length > 0){
-              t.text.setText(new_label);
-              tooltip_layer.draw();
-            } else {
-              t.clear();
-              delete savedTransitions[node1.getId()+"-"+node2.getId()];
-            }
-          }
-        } 
-      }),
-      outgoingTransitions:{},
-      incomingTransitions:{}
-    };
-    circle.on('dragstart', function() {
-        console.log('dragstart');
-        this.setFill("grey");
-        dfa_layer.draw();
-      });
-      circle.on('dragend', function() {
-        console.log('dragend');
-        this.setFill("red");
-        $.each(state.outgoingTransitions, function(index, val){
-          val.draw();
-        });
-        $.each(state.incomingTransitions, function(index, val){
-          val.draw();
-        });
-        dfa_layer.draw();
-    });
-    dfa_layer.add(circle);
-    dfa_layer.draw(); //called to draw the layer after changes
-    states.push(state);
+    states[state.getId()] = state;
 
   },
 
@@ -128,14 +81,14 @@ gesturesController = canvas_gestures({
   stage: stage,
   preview: gesture_preview,
   events: events,
-  onClick:function(loc){
-    console.log(JSON.stringify(loc))
-    $.each(states, function(index, state){
-      if(state.geo.intersects(loc)){
-        return state.geo.fire("click");
-      }
-    });
-  }
+  // onClick:function(loc){
+  //   console.log(JSON.stringify(loc))
+  //   $.each(states, function(index, state){
+  //     if(state.geo.intersects(loc)){
+  //       return state.geo.fire("click");
+  //     }
+  //   });
+  // }
 }); 
 gesturesController.enableGestures();
 // to disable gestures controller:
