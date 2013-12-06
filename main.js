@@ -23,7 +23,8 @@ var gesture_preview = new Kinetic.Layer();
 var touch_layer = new Kinetic.Layer();
 
 
-
+// We want to mark the first state as starting, this will be set to false upon drawing a state.
+var firstState = true;
 // Layer to draw our shapes
 var dfa_layer = new Kinetic.Layer();
 stage.add(dfa_layer);
@@ -34,6 +35,17 @@ stage.add(transition_layer);
 
 var tooltip_layer = new Kinetic.Layer();
 stage.add(tooltip_layer);
+
+markerLayer = new Kinetic.Layer();
+var startingMarker = new Kinetic.Wedge({
+  radius: 70,
+  angleDeg: 60,
+  stroke: 'black',
+  strokeWidth: 3,
+  rotationDeg: 150
+});
+markerLayer.add(startingMarker);
+stage.add(markerLayer);
 // an empty stage does not emit mouse-events
 // so fill the stage with a background rectangle
 // that can emit mouse-events
@@ -71,8 +83,11 @@ var events = {
       }
       else if (document.getElementById("initial").checked){
         console.log('make initial')
-        state.makeStart(true);
-        dfa_layer.draw();
+        aut.setStartingNode(state.node);
+        moveStartingMarker(state);
+        markerLayer.draw();
+        aut.setStartingNode(state);
+
       }
       else if (document.getElementById("accepting").checked){
         console.log('make accepting')
@@ -91,6 +106,12 @@ var events = {
         }
       }
     });
+    if(firstState){
+      firstState = false;
+      moveStartingMarker(state);
+      markerLayer.draw();
+      aut.setStartingNode(state);
+    }
     states[state.getId()] = state;
 
   },
