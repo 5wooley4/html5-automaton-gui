@@ -22,9 +22,15 @@ var gesture_preview = new Kinetic.Layer();
 // Layer to have touch events on.
 var touch_layer = new Kinetic.Layer();
 
+
+
 // Layer to draw our shapes
 var dfa_layer = new Kinetic.Layer();
 stage.add(dfa_layer);
+
+// layer for arcs
+var transition_layer = new Kinetic.Layer();
+stage.add(transition_layer);
 
 var tooltip_layer = new Kinetic.Layer();
 stage.add(tooltip_layer);
@@ -64,16 +70,7 @@ var events = {
         remove();
       }
     });
-    circle.on('dragstart', function() {
-        console.log('dragstart');
-        this.setFill("grey");
-        dfa_layer.draw();
-      });
-      circle.on('dragend', function() {
-        console.log('dragend');
-        this.setFill("red");
-        dfa_layer.draw();
-    })
+    
     // This adds a node to circle for the engine to work with.
     console.log()
     var state = {
@@ -87,13 +84,31 @@ var events = {
               t.text.setText(new_label);
               tooltip_layer.draw();
             } else {
-              t.removeSelf();
+              t.clear();
               delete savedTransitions[node1.getId()+"-"+node2.getId()];
             }
           }
         } 
-      })
+      }),
+      outgoingTransitions:{},
+      incomingTransitions:{}
     };
+    circle.on('dragstart', function() {
+        console.log('dragstart');
+        this.setFill("grey");
+        dfa_layer.draw();
+      });
+      circle.on('dragend', function() {
+        console.log('dragend');
+        this.setFill("red");
+        $.each(state.outgoingTransitions, function(index, val){
+          val.draw();
+        });
+        $.each(state.incomingTransitions, function(index, val){
+          val.draw();
+        });
+        dfa_layer.draw();
+    });
     dfa_layer.add(circle);
     dfa_layer.draw(); //called to draw the layer after changes
     states.push(state);
