@@ -93,6 +93,11 @@ var events = {
         state.toggleAccepting(true);
         dfa_layer.draw();
       }
+      else if (document.getElementById("rename").checked){
+        console.log('rename state');
+        prompt({onOk:function(message){alert(message)}});
+        state.setLabelText;
+      }
       else{
         console.log('delete is active')
         var answer = confirm("Would you like to delete this object?")
