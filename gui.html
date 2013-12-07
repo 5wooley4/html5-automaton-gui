@@ -11,6 +11,9 @@
         padding: 0px;
         background: black;
       }
+      .drawIcon { cursor : url(cursors/pen.cur), auto;  }
+      .deleteIcon { cursor : url(cursors/delete.ico), auto;  }
+      .renameIcon { cursor : url(cursors/rename.cur), auto;  }
       #canvas_container{background: white; height: 800px;}
     </style>
     <!-- Bootstrap core CSS -->
@@ -31,7 +34,7 @@
         <div id="menu">
           <!-- Lauryns stuff here -->
           <div class="btn-group" data-toggle="buttons" style="padding: 10px">
-            <label class="btn btn-default">
+            <label class="btn btn-default active">
               <input type="radio" name="options" onchange="changeCursor(id)" id="draw"> Draw
             </label>
             <label class="btn btn-default">
@@ -62,7 +65,7 @@
         </div>
       </nav>
     <div> 
-    <div id="main">
+    <div class="drawIcon" id="main">
       <div id="canvas_container"></div>
     </div>
     <script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.7.1.min.js"></script>
