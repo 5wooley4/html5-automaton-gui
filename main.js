@@ -95,8 +95,7 @@ var events = {
       }
       else if (document.getElementById("rename").checked){
         console.log('rename state');
-        prompt({onOk:function(message){alert(message)}});
-        state.setLabelText;
+        prompt({onOk:function(message){state.setLabelText(message)}});
       }
       else{
         console.log('delete is active')
