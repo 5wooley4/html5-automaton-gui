@@ -93,7 +93,14 @@ var events = {
         dfa_layer.draw();
       }
       else if (document.getElementById("rename").checked){
-        prompt({onOk:function(message){state.setLabelText(message)}});
+        prompt({
+          title: "Enter New Label",
+          defaultText: state.getLabelText(),
+          placeholder:"Enter Label",
+          onOk:function(message){
+            state.setLabelText(message);
+          }
+        });
       }
       else{
         var answer = confirm("Would you like to delete this object?")
