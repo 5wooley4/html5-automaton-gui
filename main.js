@@ -26,8 +26,7 @@ var gesture_preview = new Kinetic.Layer();
 var touch_layer = new Kinetic.Layer();
 
 
-// We want to mark the first state as starting, this will be set to false upon drawing a state.
-var firstState = true;
+
 // Layer to draw our shapes
 var dfa_layer = new Kinetic.Layer();
 stage.add(dfa_layer);
@@ -40,6 +39,7 @@ var tooltip_layer = new Kinetic.Layer();
 stage.add(tooltip_layer);
 
 markerLayer = new Kinetic.Layer();
+// We want to mark the first state as starting, this will be set to false upon drawing a state.
 var startingState;
 var startingMarker = new Kinetic.Wedge({
   radius: 40,
@@ -80,11 +80,7 @@ var events = {
       if (document.getElementById("move").checked){
       }
       else if (document.getElementById("initial").checked){
-        aut.setStartingNode(state.node);
-        moveStartingMarker(state);
-        markerLayer.draw();
-        aut.setStartingNode(state.node);
-
+        setStartingState(state);
       }
       else if (document.getElementById("accepting").checked){
         state.toggleAccepting(true);
@@ -105,14 +101,24 @@ var events = {
         if (answer){
           state.remove();
           dfa_layer.draw();
+          transition_layer.draw();
+          var replace_starting = (state.getId() === startingState.getId());
+          delete states[state.getId()];
+          delete state;
+          console.log(objectCount(states) +  " states left");
+          if(replace_starting && objectCount(states) > 0){
+            console.log("firstInObject: " + firstInObject(states) );
+            setStartingState(firstInObject(states)); 
+          }
         }
         else{
           return;
         }
       }
     });
-    if(firstState){
-      firstState = false;
+    if(!startingState){
+      startingState = state;
+      state.setStartingState(true);
       moveStartingMarker(state);
       markerLayer.draw();
       aut.setStartingNode(state.node);
@@ -128,6 +134,14 @@ var events = {
     transition(e);
   }
 };
+function setStartingState(state){
+  aut.setStartingNode(state.node);
+  moveStartingMarker(state);
+  startingState = state;
+  state.setStartingState(true);
+  markerLayer.draw();
+  aut.setStartingNode(state.node);
+}
 
 // Call the canvas gestures library.
 gesturesController = canvas_gestures({
