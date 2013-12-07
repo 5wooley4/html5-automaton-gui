@@ -68,6 +68,7 @@ var events = {
       state.setFill("grey");
       dfa_layer.draw();
     });
+    state.on('dragmove', state.redrawTransitions);
     state.on('dragend', function() {
       state.setFill("red");
       state.redrawTransitions();
