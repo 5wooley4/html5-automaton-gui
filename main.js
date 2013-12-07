@@ -3,7 +3,7 @@ Authors: Eric Wooley, Tandra Felly, Lauryn Loudermilk
 Description: Javascript automata engine.
 **********************************************************/
 // Start Automiton engine
-var aut = new DFA();
+var aut = new DFA({debug: true});
 // TODO: Hookup DFA STFF HERE
 // Adds an html5 canvas to container
 var stage = new Kinetic.Stage({
@@ -11,6 +11,9 @@ var stage = new Kinetic.Stage({
   width:$("#canvas_container").width(),
   height: $("#canvas_container").height()
 });
+$("#testStringButton").on('click', function(){
+  alert(aut.run($("#testString").val()));
+})
 // index, with the keys formatted as stateFromId-stateToId
 // ex: if a state goes from state with id 1, to a state with id 3
 // the index would be savedTransitions["1-3"]
@@ -82,7 +85,7 @@ var events = {
         aut.setStartingNode(state.node);
         moveStartingMarker(state);
         markerLayer.draw();
-        aut.setStartingNode(state);
+        aut.setStartingNode(state.node);
 
       }
       else if (document.getElementById("accepting").checked){
@@ -107,7 +110,7 @@ var events = {
       firstState = false;
       moveStartingMarker(state);
       markerLayer.draw();
-      aut.setStartingNode(state);
+      aut.setStartingNode(state.node);
     }
     states[state.getId()] = state;
     dfa_layer.draw();
