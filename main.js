@@ -68,12 +68,10 @@ var events = {
   circle: function(e){
     var state = new State(e);  
     state.on('dragstart', function() {
-      state.setFill("grey");
       dfa_layer.draw();
     });
     state.on('dragmove', state.redrawTransitions);
     state.on('dragend', function() {
-      state.setFill("red");
       state.redrawTransitions();
       transition_layer.draw();
       dfa_layer.draw();
