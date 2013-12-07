@@ -76,12 +76,9 @@ var events = {
       dfa_layer.draw();
     });
     state.on('click', function(){
-      console.log("you clicked the circle!");
       if (document.getElementById("move").checked){
-        console.log('move is active')
       }
       else if (document.getElementById("initial").checked){
-        console.log('make initial')
         aut.setStartingNode(state.node);
         moveStartingMarker(state);
         markerLayer.draw();
@@ -89,16 +86,13 @@ var events = {
 
       }
       else if (document.getElementById("accepting").checked){
-        console.log('make accepting')
         state.toggleAccepting(true);
         dfa_layer.draw();
       }
       else if (document.getElementById("rename").checked){
-        console.log('rename state');
         prompt({onOk:function(message){state.setLabelText(message)}});
       }
       else{
-        console.log('delete is active')
         var answer = confirm("Would you like to delete this object?")
         if (answer){
           state.remove();
