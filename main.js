@@ -3,7 +3,7 @@ Authors: Eric Wooley, Tandra Felly, Lauryn Loudermilk
 Description: Javascript automata engine.
 **********************************************************/
 // Start Automiton engine
-var aut = new DFA({debug: true});
+var aut = new DFA({debug: true, speed: 100});
 // TODO: Hookup DFA STFF HERE
 // Adds an html5 canvas to container
 var stage = new Kinetic.Stage({
@@ -12,8 +12,30 @@ var stage = new Kinetic.Stage({
   height: $("#canvas_container").height()
 });
 $("#testStringButton").on('click', function(){
-  alert(aut.run($("#testString").val()));
-})
+  //alert(aut.run($("#testString").val()));
+  var pos = startingState.getPosition();
+  //ph.setPosition(pos.x, pos.y);
+  //ph.animateTo(pos.x+100, pos.y+100);
+  //ph.animateTo(pos.x, pos.y);
+  var animationSpeed = Math.ceil(Number($("#animationSpeed").val()));
+  $("#animationSpeed").val(animationSpeed);
+  aut.run_with_animation({
+    speed: animationSpeed * 1000, 
+    string: $("#testString").val(),
+    onFinish: function(result){
+      ph.setChar('');
+      setTimeout(function(){
+        ph.animateTo(0,0);
+      },animationSpeed * 1000);
+      if(result){
+        $("#testString").css("background-color", "#AAFAAA");
+      } else {
+        $("#testString").css("background-color", "#FAAAAA");
+      }
+    }
+  });
+});
+
 // index, with the keys formatted as stateFromId-stateToId
 // ex: if a state goes from state with id 1, to a state with id 3
 // the index would be savedTransitions["1-3"]
@@ -24,6 +46,7 @@ var gesture_preview = new Kinetic.Layer();
 
 // Layer to have touch events on.
 var touch_layer = new Kinetic.Layer();
+
 
 
 
@@ -39,6 +62,11 @@ var tooltip_layer = new Kinetic.Layer();
 stage.add(tooltip_layer);
 
 markerLayer = new Kinetic.Layer();
+var placeholder_layer = new Kinetic.Layer();
+var ph = new PlaceHolder();
+stage.add(placeholder_layer);
+placeholder_layer.add(ph.geo);
+placeholder_layer.draw();
 // We want to mark the first state as starting, this will be set to false upon drawing a state.
 var startingState;
 var startingMarker = new Kinetic.Wedge({
@@ -67,6 +95,14 @@ var states = {};
 var events = {
   circle: function(e){
     var state = new State(e);  
+    e.onEnter = function(charToTest){
+      console.log("on enter " + state.getLabelText());
+      ph.animateTo(pos.x, pos.y, animationSpeed);
+    }
+    e.onExit = function(charTested){
+      console.log("on exit " + state.getLabelText());
+      ph.setChar(charTested);
+    }
     state.on('dragstart', function() {
       dfa_layer.draw();
     });
