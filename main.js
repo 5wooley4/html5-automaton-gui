@@ -100,7 +100,7 @@ var events = {
         var answer = confirm("Would you like to delete this object?")
         if (answer){
           state.remove();
-          dfa_layer.draw();
+          
           transition_layer.draw();
           var replace_starting = (state.getId() === startingState.getId());
           delete states[state.getId()];
@@ -110,6 +110,7 @@ var events = {
             console.log("firstInObject: " + firstInObject(states) );
             setStartingState(firstInObject(states)); 
           }
+          dfa_layer.draw();
         }
         else{
           return;
