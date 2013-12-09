@@ -1,0 +1,5 @@
+.warn, .fail, .pass{ font-size: 20px;}
+.warn{color: orange;}
+.fail{color: red; }
+.pass{color: green;}
+td{text-align: right; border-bottom: 1px dashed black; padding-right: 20;}

@@ -1,0 +1,127 @@
+<!html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="../lib/automiton.js"></script>
+	<script type="text/javascript" src="../lib/underscore-min.js"></script>
+	<script type="text/javascript" src="../lib/jquery.min.js"></script>
+	<script type="text/javascript">
+	var debug = true;
+	// Test 1
+	// examples implemented from here: http://web.cs.gc.cuny.edu/~mlampis/cis38/hws/sol1.pdf
+	var test1 = new DFA({debug: debug});
+	// problem 2
+	// The alphabet is {a, b, c}. Give a DFA that recognizes the language L which
+	// consists of the strings where the number of b’s is a multiple of 3.
+	var node_1 = test1.add_node(
+		{accepting: true, starting: true, lbl: 'node_1'}
+	);
+	var node_2 = test1.add_node({lbl: 'node_2'});
+	var node_3 = test1.add_node({lbl: 'node_3'});
+
+	// Node 1 transitions
+	node_1.add_transition('ac', node_1);
+	node_1.add_transition('b', node_2);
+
+	// Node 2 transitions
+	node_2.add_transition('ac', node_2);
+	node_2.add_transition('b', node_3);
+
+	// Node 3 transitions.
+	node_3.add_transition('ac', node_3);
+	node_3.add_transition('b', node_1);
+	problems = [];
+	problems.push({problem: 'bbb', answer: true});
+	problems.push({problem: 'abc', answer: false});
+	problems.push({problem: 'abbabbabb', answer: true});
+	problems.push({problem: 'abcabcabc', answer: true});
+	problems.push({problem: 'abasadfa', answer: false});
+	problems.push({problem: 'abbaaf', answer: false});
+
+	run_tests({
+		aut: test1,
+		problems: problems,
+		header: "<h1>Problem 1</h1><p>The alphabet is {a, b, c}. Give a DFA that recognizes the language L which consists of the strings where the number of b's is a multiple of 3.</p>"
+	});
+
+	// cleanup
+	delete test1;
+	delete node_1;
+	delete node_2;
+	delete node_3;
+	delete problems;
+
+
+
+	// Test 2
+	// the alphabet is {a, b, c}
+	// consists of all strings that start with ab.
+	var test2 = new DFA({debug: debug});
+
+	// Nodes
+	var node_1 = test2.add_node({starting: true, lbl:"node_1"});
+	var node_2 = test2.add_node({lbl:"node_2"});
+	var node_3 = test2.add_node({lbl:"node_3", accepting: true});
+	var node_4 = test2.add_node({lbl:"node_4"});
+
+	// Node_1 Transitions
+	node_1.add_transition('a', node_2);
+	node_1.add_transition('b', node_4);
+
+	// Node_2 Transitions
+	node_2.add_transition('b', node_3);
+	node_2.add_transition('a', node_4);
+
+	// Node_3 Transitions
+	node_3.add_transition('ab', node_3);
+
+	// Node_4 Transitions
+	node_4.add_transition('ab', node_4);
+
+	var problems = [];
+	problems.push({problem: 'abbabb', answer: true});
+	problems.push({problem: 'ab', answer: true});
+	problems.push({problem: 'abbabbaabba', answer: true});
+	problems.push({problem: 'babbabbaba', answer: false});
+	problems.push({problem: 'cbaabasadfa', answer: false});
+	problems.push({problem: 'babbaaf', answer: false});
+
+	// cleanup
+	delete test2;
+	delete node_1;
+	delete node_2;
+	delete node_3;
+	delete node_4;
+	delete problems;
+
+	run_tests({
+		aut: test2,
+		problems: problems,
+		header: "<h1>Problem 2</h1><p>The alphabet is {a, b, c}. Give a DFA that recognizes the language L which cconsists of all strings that start with ab.</p>"
+	})
+
+	// Run tests takes the automita and runs all the tests and outputs it.
+	function run_tests(obj){
+		var problems = obj.problems;
+		var aut = obj.aut;
+		if(obj.header)
+			document.write(obj.header);
+		document.write("<table>");
+		for(var i =0; i < problems.length; i++){
+			if(debug) console.log("testing: " + problems[i].problem)
+			var p = problems[i];
+			var ans = aut.run(p.problem);
+			var answer_correct = p.answer == ans ? "pass": "fail";
+			//console.log(p.problem + ": " + answer_correct + " (" + ans + ")");
+			document.write("<tr><td><span class='" +answer_correct+"' >"+p.problem + " ("+ans+")<span></td><td> <span class='" +answer_correct+"' ><b>"+answer_correct+"</b></span></td></tr>" );
+
+		}
+		document.write("</table>");
+	}
+
+
+	</script>
+</head>
+<body>
+</body>
+</html>
